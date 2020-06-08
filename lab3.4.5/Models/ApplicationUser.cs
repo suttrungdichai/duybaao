@@ -22,6 +22,8 @@ namespace lab3._4._5.Models
     {
         public DbSet<Course> Course { get; set; }
         public DbSet<Category> Categoryes { get; set; }
+        public object Courses { get; internal set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
