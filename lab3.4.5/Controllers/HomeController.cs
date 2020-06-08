@@ -1,4 +1,5 @@
-﻿using System;
+﻿using lab3._4._5.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +9,17 @@ namespace lab3._4._5.Controllers
 {
     public class HomeController : Controller
     {
+        private  ApplicationDbContext _dbContext;
+        public HomeController()
+        {
+            _dbContext = new ApplicationDbContext();
+        }
         public ActionResult Index()
         {
+            var upcommingCourese = _dbContext.Courses
+                .Include(c => c.Lecturer)
+                .Include(c => c.Category)
+                .Include(c => c.DateTime > DateTime.Now);
             return View();
         }
 

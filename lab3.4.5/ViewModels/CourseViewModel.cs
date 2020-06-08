@@ -15,6 +15,7 @@ namespace lab3._4._5.ViewModels
         [FutureDate]
         public string Date { get; set; }
         [Required]
+        
         public string Time { get; set; }
         [Required]
         public byte Category { get; set; }
