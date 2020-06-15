@@ -48,7 +48,7 @@ namespace lab3._4._5.Controllers
             };
             _dbContext.Courses.Add(course);
             _dbContext.SaveChanges();
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index","Home"); 
         }
         [Authorize]
         public ActionResult Attending()
