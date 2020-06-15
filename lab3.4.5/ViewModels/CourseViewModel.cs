@@ -2,13 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Web;
-
+using System.Data.Entity;
 namespace lab3._4._5.ViewModels
 {
     public class CourseViewModel
     {
+        public IEnumerable<Course> UpcommingCourses { get; set; }
+        public bool ShowAction { get; set; }
         [Required]
         public string Place { get; set; }
         [Required]
@@ -25,5 +28,24 @@ namespace lab3._4._5.ViewModels
         {
             return DateTime.Parse(string.Format("{0} {1}", Date, Time));
         }
+        public class ValidTime : ValidationAttribute
+        {
+            
+
+            public override bool IsValid(object value)
+            {
+                DateTime dateTime;
+                var isValid = DateTime.TryParseExact(Convert.ToString(value),
+                    "HH:mm",
+                CultureInfo.CurrentCulture,
+                DateTimeStyles.None,
+                out dateTime);
+                
+                return  isValid;
+               
+            }
+        }
+
     }
+    
 }

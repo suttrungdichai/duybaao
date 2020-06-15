@@ -24,13 +24,14 @@ namespace lab3._4._5.Controllers
         { 
         var viewModel = new CourseViewModel
           {
-            Categories = _dbContext.Categoryes.ToList()
+            Categories = _dbContext.Categories.ToList()
              
           };
             return View(viewModel);
         }
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(CourseViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -45,11 +46,16 @@ namespace lab3._4._5.Controllers
                 //CategoryId = viewModel.Category,
                Place = viewModel.Place
             };
-            _dbContext.Course.Add(course);
+            _dbContext.Courses.Add(course);
             _dbContext.SaveChanges();
             return RedirectToAction("Index","Home");
         }
-        
+        [Authorize]
+        public ActionResult Attending()
+        {
+
+            return View();
+        }
        
     }
 }

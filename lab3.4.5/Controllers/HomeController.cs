@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
+using lab3._4._5.ViewModels;
 
 namespace lab3._4._5.Controllers
 {
@@ -16,11 +18,16 @@ namespace lab3._4._5.Controllers
         }
         public ActionResult Index()
         {
-            var upcommingCourese = _dbContext.Courses
+            var upcommingCoureses = _dbContext.Courses
                 .Include(c => c.Lecturer)
-                .Include(c => c.Category)
-                .Include(c => c.DateTime > DateTime.Now);
-            return View();
+                .Include(c => c.Category);
+             //   .Include(c => c.DateTime > DateTime.Now);
+            var viewModel = new CourseViewModel
+            {
+                UpcommingCourses = upcommingCoureses,
+                ShowAction = User.Identity.IsAuthenticated
+            };
+            return View(viewModel);
         }
 
         public ActionResult About()
